@@ -105,6 +105,54 @@
     }
     .nav-cta:hover { background: var(--c); color: var(--bg); }
 
+    /* ── NAV CTA PULSE ──────────────────────── */
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,.3); }
+      50% { box-shadow: 0 0 0 8px rgba(0,212,255,0); }
+    }
+    .nav-cta { animation: ctaPulse 3s infinite; }
+
+    /* ── HAMBURGER ──────────────────────────── */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--t1);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: .25rem;
+      z-index: 210;
+      line-height: 1;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 199;
+      background: rgba(5,12,26,0.92);
+      backdrop-filter: blur(24px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .mobile-menu.open {
+      display: flex;
+      opacity: 1;
+    }
+    .mobile-menu a {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--t2);
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--c); }
+
     /* ── HERO ───────────────────────────────── */
     #hero {
       position: relative; z-index: 1;
@@ -439,6 +487,25 @@
       box-shadow: 0 24px 64px rgba(0,0,0,.4), 0 0 40px rgba(0,212,255,.04);
     }
 
+    /* Project image */
+    .proj-img {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    .proj-img img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .proj-card:hover .proj-img img {
+      transform: scale(1.03);
+    }
+
     .proj-top {
       display: flex; justify-content: space-between; align-items: flex-start;
       margin-bottom: 1rem;
@@ -480,6 +547,27 @@
       border-color: var(--c);
       color: var(--c);
       transform: rotate(45deg);
+    }
+
+    /* Metric pills */
+    .proj-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1rem;
+    }
+    .metric {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .25rem .75rem;
+      background: rgba(0,212,255,.08);
+      border: 1px solid rgba(0,212,255,.2);
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--c);
+      letter-spacing: .02em;
     }
 
     .proj-desc {
@@ -531,6 +619,46 @@
       font-size: .72rem;
       color: #a78bfa;
       font-weight: 500;
+    }
+
+    /* Live Demo button */
+    .proj-btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem 1.1rem;
+      border-radius: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      background: var(--c);
+      color: #050c1a;
+      border: 1px solid var(--c);
+      transition: background .2s, transform .2s, box-shadow .2s;
+      letter-spacing: .03em;
+      cursor: pointer;
+    }
+    .proj-btn-demo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,212,255,.25);
+    }
+    .proj-btn-demo.coming-soon {
+      opacity: .5;
+      cursor: not-allowed;
+      position: relative;
+    }
+    .proj-btn-demo.coming-soon:hover::after {
+      content: 'Coming Soon';
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: .3rem .7rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: .68rem;
+      color: var(--t2);
+      white-space: nowrap;
     }
 
     /* ── RESEARCH ───────────────────────────── */
@@ -760,13 +888,20 @@
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
+      .hamburger { display: block; }
       .wrap { padding-inline: 1.5rem; }
 
       #hero {
         grid-template-columns: 1fr;
-        padding: 7rem 1.5rem 5rem;
+        padding: 6rem 1.5rem 3rem;
       }
       .hero-right { display: none; }
+      .hero-name { font-size: clamp(2.4rem, 9vw, 3.5rem); }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-sub { font-size: .95rem; }
+      .hero-pills .pill { font-size: .7rem; }
+      .scroll-cue { display: none; }
 
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .skills-grid { grid-template-columns: 1fr; }
@@ -775,6 +910,12 @@
 
       .exp-card { grid-template-columns: 1fr; gap: 1.5rem; }
       .exp-meta { text-align: left; }
+
+      .proj-desc { max-width: 100%; }
+      .proj-num { font-size: 3rem; }
+      .proj-card { padding: 1.5rem; }
+      section { padding-block: 4.5rem; }
+      .sh-title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
 
       footer { flex-direction: column; gap: .75rem; text-align: center; }
     }
@@ -795,8 +936,20 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#certifications">Certs</a></li>
   </ul>
+  <button class="hamburger" aria-label="Toggle menu">☰</button>
   <a href="mailto:yaseenbagwan399@gmail.com" class="nav-cta">Hire Me</a>
 </nav>
+
+<!-- ─────────────── MOBILE MENU ──────────── -->
+<div class="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#research">Research</a>
+  <a href="#experience">Experience</a>
+  <a href="#certifications">Certs</a>
+  <a href="mailto:yaseenbagwan399@gmail.com">Hire Me</a>
+</div>
 
 <!-- ─────────────────── HERO ──────────────── -->
 <section id="hero" class="z1">
@@ -979,6 +1132,9 @@
 
       <!-- Project 1 -->
       <div class="proj-card rv">
+        <div class="proj-img">
+          <img src="images/shadow.png" alt="ShadowIntern project screenshot" loading="lazy" />
+        </div>
         <span class="proj-num">01</span>
         <div class="proj-top">
           <div>
@@ -986,6 +1142,11 @@
             <div class="proj-type">AI Internship Simulation Platform</div>
           </div>
           <div class="proj-arrow">↗</div>
+        </div>
+        <div class="proj-metrics">
+          <span class="metric">⚡ <500ms API</span>
+          <span class="metric">🏢 10+ Environments</span>
+          <span class="metric">🧠 70B LLM</span>
         </div>
         <p class="proj-desc">A full-stack AI web platform that simulates working at a target tech company before interviewing — powered by LLaMA-3.3-70B via Groq API, with real-time code execution, Monaco Editor, and instant AI mentor-style feedback across 10+ company environments.</p>
         <ul class="proj-points">
@@ -1000,6 +1161,9 @@
           <span class="tech">Monaco Editor</span><span class="tech">Railway</span><span class="tech">Vercel</span>
         </div>
         <div class="proj-btns">
+          <a href="#" class="proj-btn-demo coming-soon">
+            🚀 Live Demo
+          </a>
           <a href="https://github.com/Mohammedyaseen7/shadowintern" target="_blank" rel="noopener" class="proj-btn">
             ↗ GitHub
           </a>
@@ -1008,6 +1172,9 @@
 
       <!-- Project 2 -->
       <div class="proj-card rv">
+        <div class="proj-img">
+          <img src="images/empathai.png" alt="EmpathAI project screenshot" loading="lazy" />
+        </div>
         <span class="proj-num">02</span>
         <div class="proj-top">
           <div>
@@ -1015,6 +1182,11 @@
             <div class="proj-type">Real-Time AI Education Tutor Platform</div>
           </div>
           <div class="proj-arrow">↗</div>
+        </div>
+        <div class="proj-metrics">
+          <span class="metric">✅ 35/35 Tests</span>
+          <span class="metric">⚡ <200ms RAG</span>
+          <span class="metric">🔌 WebSocket Live</span>
         </div>
         <p class="proj-desc">A full-stack AI education platform featuring a real-time WebSocket classroom, a 3-tier RAG pipeline, and per-student concept graphs for truly personalized adaptive learning — validated with 35/35 automated tests passing.</p>
         <ul class="proj-points">
@@ -1029,6 +1201,9 @@
           <span class="tech">WebSockets</span>
         </div>
         <div class="proj-btns">
+          <a href="#" class="proj-btn-demo coming-soon">
+            🚀 Live Demo
+          </a>
           <a href="https://github.com/Mohammedyaseen7" target="_blank" rel="noopener" class="proj-btn">
             ↗ GitHub
           </a>
@@ -1037,6 +1212,9 @@
 
       <!-- Project 3 -->
       <div class="proj-card rv">
+        <div class="proj-img">
+          <img src="images/multimodal.png" alt="Multimodal Cognitive Agent project screenshot" loading="lazy" />
+        </div>
         <span class="proj-num">03</span>
         <div class="proj-top">
           <div>
@@ -1044,6 +1222,11 @@
             <div class="proj-type">Emotion-Aware Human–AI Interaction</div>
           </div>
           <div class="proj-arrow">↗</div>
+        </div>
+        <div class="proj-metrics">
+          <span class="metric">⚡ <1s Latency</span>
+          <span class="metric">✅ 35/35 Tests</span>
+          <span class="metric">🖥️ Zero GPU</span>
         </div>
         <p class="proj-desc">An LLM-driven conversational agent integrating text, speech, and facial emotion recognition with a weighted fusion architecture for real-time emotion-aware dialogue — achieving sub-1-second latency on Apple M4 with zero external GPU dependency.</p>
         <ul class="proj-points">
@@ -1058,6 +1241,9 @@
           <span class="tech">Multimodal AI</span>
         </div>
         <div class="proj-btns">
+          <a href="#" class="proj-btn-demo coming-soon">
+            🚀 Live Demo
+          </a>
           <a href="https://github.com/Mohammedyaseen7" target="_blank" rel="noopener" class="proj-btn">
             ↗ GitHub
           </a>
@@ -1324,6 +1510,25 @@
       a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
     });
   }, { passive: true });
+})();
+
+/* ── HAMBURGER MENU ────────────────────────── */
+(function () {
+  const btn = document.querySelector('.hamburger');
+  const menu = document.querySelector('.mobile-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    btn.textContent = isOpen ? '✕' : '☰';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.textContent = '☰';
+      document.body.style.overflow = '';
+    });
+  });
 })();
 </script>
 </body>
